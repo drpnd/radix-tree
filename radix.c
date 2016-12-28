@@ -93,7 +93,7 @@ _lookup(struct radix_tree_node *cur, struct radix_tree_node *cand, uint8_t *key,
     }
 
     /* Check the corresponding bit */
-    if ( key[depth >> 3] & (1 << (depth & 0x7)) ) {
+    if ( key[depth >> 3] & (0x80 >> (depth & 0x7)) ) {
         /* Right node */
         return _lookup(cur->right, cand, key, depth + 1);
     } else {
@@ -141,7 +141,7 @@ _add(struct radix_tree_node **cur, uint8_t *key, int prefixlen, void *data,
         return 0;
     } else {
         /* Check the corresponding bit */
-        if ( key[depth >> 3] & (1 << (depth & 0x7)) ) {
+        if ( key[depth >> 3] & (0x80 >> (depth & 0x7)) ) {
             /* Right node */
             return _add(&(*cur)->right, key, prefixlen, data, depth + 1);
         } else {
@@ -223,7 +223,7 @@ _delete(struct radix_tree_node **cur, uint8_t *key, int prefixlen, int depth)
         }
     } else {
         /* Check the corresponding bit */
-        if ( key[depth >> 3] & (1 << (depth & 0x7)) ) {
+        if ( key[depth >> 3] & (0x80 >> (depth & 0x7)) ) {
             /* Right node */
             return _delete(&(*cur)->right, key, prefixlen, depth + 1);
         } else {
