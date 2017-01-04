@@ -1,5 +1,5 @@
 /*_
- * Copyright (c) 2016 Hirochika Asai <asai@jar.jp>
+ * Copyright (c) 2016-2017 Hirochika Asai <asai@jar.jp>
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +25,8 @@
 #include <stdint.h>
 #include <string.h>
 #include "radix.h"
+
+#define BIT_TEST(k, b)  (((uint8_t *)(k))[(b) >> 3] & (0x80 >> ((b) & 0x7)))
 
 /*
  * Initialize the data structure for radix tree
@@ -74,7 +76,6 @@ radix_tree_release(struct radix_tree *rt)
     }
 }
 
-
 /*
  * Recursive process of the lookup procedure
  */
@@ -93,7 +94,7 @@ _lookup(struct radix_tree_node *cur, struct radix_tree_node *cand, uint8_t *key,
     }
 
     /* Check the corresponding bit */
-    if ( key[depth >> 3] & (0x80 >> (depth & 0x7)) ) {
+    if ( BIT_TEST(key, depth) ) {
         /* Right node */
         return _lookup(cur->right, cand, key, depth + 1);
     } else {
@@ -141,7 +142,7 @@ _add(struct radix_tree_node **cur, uint8_t *key, int prefixlen, void *data,
         return 0;
     } else {
         /* Check the corresponding bit */
-        if ( key[depth >> 3] & (0x80 >> (depth & 0x7)) ) {
+        if ( BIT_TEST(key, depth) ) {
             /* Right node */
             return _add(&(*cur)->right, key, prefixlen, data, depth + 1);
         } else {
@@ -223,7 +224,7 @@ _delete(struct radix_tree_node **cur, uint8_t *key, int prefixlen, int depth)
         }
     } else {
         /* Check the corresponding bit */
-        if ( key[depth >> 3] & (0x80 >> (depth & 0x7)) ) {
+        if ( BIT_TEST(key, depth) ) {
             /* Right node */
             return _delete(&(*cur)->right, key, prefixlen, depth + 1);
         } else {
@@ -241,7 +242,6 @@ radix_tree_delete(struct radix_tree *rt, uint8_t *key, int prefixlen)
 {
     return _delete(&rt->root, key, prefixlen, 0);
 }
-
 
 /*
  * Local variables:
