@@ -251,4 +251,3 @@ radix_tree_delete(struct radix_tree *rt, uint8_t *key, int prefixlen)
  * vim600: sw=4 ts=4 fdm=marker
  * vim<600: sw=4 ts=4
  */
-
