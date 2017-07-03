@@ -1,5 +1,5 @@
 /*_
- * Copyright (c) 2016 Hirochika Asai <asai@jar.jp>
+ * Copyright (c) 2016-2017 Hirochika Asai <asai@jar.jp>
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -56,8 +56,7 @@ extern "C" {
 #endif
 
     /* in radix.c */
-    struct radix_tree *
-    radix_tree_init(struct radix_tree *);
+    struct radix_tree * radix_tree_init(struct radix_tree *);
     void radix_tree_release(struct radix_tree *);
     void * radix_tree_lookup(struct radix_tree *, uint8_t *);
     int radix_tree_add(struct radix_tree *, uint8_t *, int, void *);
