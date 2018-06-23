@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2016, 2018 Hirochika Asai.
+# Copyright (c) 2016,2018 Hirochika Asai.
 # All rights reserved.
 #
 # Authors:
