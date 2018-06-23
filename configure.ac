@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2016 Hirochika Asai.
+# Copyright (c) 2016, 2018 Hirochika Asai.
 # All rights reserved.
 #
 # Authors:
@@ -11,7 +11,7 @@ AC_INIT([radix-tree], [0.1.0], [asai@jar.jp])
 AC_CONFIG_SRCDIR([radix.c])
 AC_CONFIG_HEADER([config.h])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 AC_SUBST(SUBDIRS)
 
 # arguments
