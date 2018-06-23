@@ -24,6 +24,7 @@
 #include "../radix.h"
 #include <stdio.h>
 #include <sys/time.h>
+#include <inttypes.h>
 
 /* Macro for testing */
 #define TEST_FUNC(str, func, ret)                \
@@ -235,7 +236,7 @@ test_lookup_linx_performance(void)
     }
     t1 = getmicrotime();
 
-    printf("RESULT: %llx\n", res);
+    printf("RESULT: %" PRIu64 "\n", res);
 
     printf("Result[0]: %lf ns/lookup\n", (t1 - t0)/i * 1000000000);
     printf("Result[1]: %lf Mlps\n", 1.0 * i / (t1 - t0) / 1000000);
